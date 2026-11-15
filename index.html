@@ -1,0 +1,1973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--
+  ============================================================
+  JUAN MENESES PORTFOLIO — single file, no build step.
+  Open this file in a browser, or upload it (plus an "assets"
+  folder) to any free static host.
+
+  QUICK EDITS
+  1. Add a project ....... Scroll to "PROJECTS" in the <script> near the
+                           bottom. Copy one { ... } object, paste it into
+                           the array, give it a new id, fill in the fields.
+                           The grid, filters and post view update on their own.
+  2. Swap the photo ...... In the <script>, set PROFILE_PHOTO to your image
+                           path, e.g. "assets/profile.jpg". Leave it as ""
+                           to keep the "JM" initials.
+  3. Replace the resume .. Save your PDF as assets/resume.pdf (or change the
+                           href on the "Resume" link in the header below).
+  4. Bio and contact ..... Edit the text inside <div class="bio"> below and
+                           the mailto: address on the "Contact" link.
+  ============================================================
+-->
+<title>Juan Meneses | Digital Marketing Portfolio</title>
+<meta name="description" content="Social, video, design and campaign work by Juan Meneses, a bilingual Digital Marketing Coordinator in Houston, TX.">
+<meta name="author" content="Juan Meneses">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="Juan Meneses">
+<meta property="og:title" content="Juan Meneses | Digital Marketing Portfolio">
+<meta property="og:description" content="Social, video, design and campaign work, with the role, tools and result behind every project.">
+<!-- Optional once hosted: add a preview image and your live address.
+<meta property="og:image" content="https://your-site.example/assets/preview.jpg">
+<meta property="og:url" content="https://your-site.example/">
+-->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='29' fill='%23161616' stroke='%23ff6b4a' stroke-width='4'/%3E%3Ctext x='32' y='40' font-family='system-ui,sans-serif' font-size='22' font-weight='700' text-anchor='middle' fill='%23f5f5f5'%3EJM%3C/text%3E%3C/svg%3E">
+
+<style>
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface-2: #171717;
+  --line: #262626;
+  --text: #f5f5f5;
+  --muted: #a8a8a8;
+  --accent: #ff6b4a;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --wrap: 935px;
+  --gap: 3px;
+  --tile-r: 3px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scrollbar-gutter: stable;
+  color-scheme: dark;
+  background: var(--bg);
+}
+html.is-locked { overflow: hidden; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 400 15px/1.5 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+svg { display: block; }
+.i { width: 20px; height: 20px; flex: none; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+
+.skip {
+  position: absolute; left: 12px; top: -60px; z-index: 10;
+  padding: 10px 14px; border-radius: 8px;
+  background: var(--text); color: var(--bg); font-weight: 600; text-decoration: none;
+}
+.skip:focus { top: 12px; }
+
+.wrap { max-width: var(--wrap); margin: 0 auto; }
+
+/* ---------- Profile header ---------- */
+.profile {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: "avatar stats" "id id" "bio bio";
+  column-gap: 20px;
+  row-gap: 14px;
+  align-items: center;
+  padding: 28px 16px 6px;
+}
+
+.avatar {
+  --av: 88px;
+  grid-area: avatar;
+  display: block;
+  flex: none;
+  width: var(--av);
+  height: var(--av);
+  padding: 4px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+}
+.avatar__face {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #4d2a21 0%, #1e1e1e 55%, #121212 100%);
+  color: var(--text);
+  font-weight: 700;
+  font-size: calc(var(--av) * .29);
+  letter-spacing: .02em;
+}
+.avatar__face img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.avatar--sm { --av: 36px; padding: 2px; border-width: 1.5px; }
+
+.stats {
+  grid-area: stats;
+  display: flex;
+  justify-content: space-around;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+}
+.stats b {
+  display: block;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -.01em;
+  font-variant-numeric: tabular-nums;
+}
+.stats span { font-size: 13px; color: var(--muted); }
+
+.profile__id { grid-area: id; min-width: 0; }
+.profile__id h1 {
+  margin: 0;
+  font-size: clamp(26px, 6.4vw, 44px);
+  line-height: 1.05;
+  font-weight: 750;
+  letter-spacing: -.035em;
+}
+.handle { margin: 6px 0 0; font-size: 14px; color: var(--muted); }
+
+.bio { grid-area: bio; min-width: 0; }
+.bio p { margin: 0; }
+.bio__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 22px;
+  margin-top: 10px;
+}
+.bio__links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 36px;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+.bio__links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.bio__links .i { width: 18px; height: 18px; }
+.bio .bio__aside {
+  max-width: 48ch;
+  margin-top: 10px;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+/* ---------- Highlight circles (category filters) ---------- */
+.highlights {
+  display: flex;
+  gap: 16px;
+  margin: 0;
+  padding: 18px 16px 22px;
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: 16px;
+  scrollbar-width: none;
+}
+.highlights::-webkit-scrollbar { display: none; }
+.highlights li { flex: none; scroll-snap-align: start; }
+
+.hl {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  width: 72px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.2;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.hl__ring {
+  display: block;
+  width: 68px;
+  height: 68px;
+  padding: 3px;
+  border: 2px solid var(--line);
+  border-radius: 50%;
+  transition: border-color .2s ease;
+}
+.hl__disc {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--surface-2);
+  color: var(--text);
+  transition: background-color .2s ease;
+}
+.hl .i { width: 24px; height: 24px; }
+.hl:hover .hl__disc { background: #1f1f1f; }
+.hl:hover { color: var(--text); }
+.hl[aria-pressed="true"] { color: var(--text); font-weight: 600; }
+.hl[aria-pressed="true"] .hl__ring { border-color: var(--accent); }
+.hl:focus-visible { outline-offset: 5px; border-radius: 12px; }
+
+/* ---------- Work bar ---------- */
+.workbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 16px;
+  border-top: 1px solid var(--line);
+}
+.workbar h2 {
+  position: relative;
+  margin: 0;
+  padding: 13px 0;
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.4;
+}
+.workbar h2::before {
+  content: "";
+  position: absolute;
+  top: -1px; left: 0; right: 0;
+  height: 1px;
+  background: var(--text);
+}
+.workbar__status { margin: 0; font-size: 13.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.workbar__clear {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  min-height: 32px;
+  padding: 0 8px 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-2);
+  font-size: 13px;
+  cursor: pointer;
+}
+.workbar__clear:hover { border-color: var(--accent); }
+.workbar__clear .i { width: 14px; height: 14px; color: var(--muted); }
+
+/* ---------- Grid ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.grid__item { min-width: 0; }
+
+.tile {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 4; /* 1080 x 1440, the current profile-grid shape */
+  overflow: hidden;
+  border-radius: var(--tile-r);
+  background: var(--surface-2);
+  text-decoration: none;
+  transition: transform .25s ease, box-shadow .25s ease, opacity .25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.tile__thumb, .tile__preview {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.tile__embed { position: absolute; inset: 0; overflow: hidden; pointer-events: none; background: #000; }
+.tile__embed iframe {
+  position: absolute; left: 0; top: 50%;
+  width: 100%; height: 177.78%;
+  border: 0;
+  transform: translateY(-50%);
+}
+.missing {
+  position: absolute; inset: 0;
+  display: grid; place-content: center; gap: 4px;
+  padding: 10px;
+  background: repeating-linear-gradient(135deg, #141414 0 10px, #181818 10px 20px);
+  color: var(--muted);
+  font-size: 12px; line-height: 1.35; text-align: center;
+  overflow-wrap: anywhere;
+}
+.missing b { color: var(--text); font-size: 13px; font-weight: 600; }
+.tile__preview { opacity: 0; transition: opacity .25s ease; pointer-events: none; }
+.tile__preview.is-playing { opacity: 1; }
+
+.tile__badge {
+  position: absolute;
+  top: 6px; right: 6px;
+  display: grid;
+  place-items: center;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: rgba(10, 10, 10, .62);
+  color: #fff;
+}
+.tile__badge .i { width: 13px; height: 13px; }
+
+.tile__overlay {
+  position: absolute; inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 3px;
+  padding: 14px;
+  background: linear-gradient(to top, rgba(10,10,10,.94) 0%, rgba(10,10,10,.66) 36%, rgba(10,10,10,.12) 74%, rgba(10,10,10,0) 100%);
+  color: var(--text);
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+/* Sample artwork carries its own title; hide it while the overlay title shows. */
+.art__title { transition: opacity .2s ease; }
+.tile:focus-visible .art__title { opacity: 0; }
+.tile__type { font-size: 12.5px; font-weight: 600; color: var(--accent); }
+.tile__title { font-size: 16px; font-weight: 650; line-height: 1.22; letter-spacing: -.01em; }
+.tile:focus-visible { outline-offset: 2px; z-index: 3; }
+.tile:focus-visible .tile__overlay { opacity: 1; }
+
+@media (hover: hover) and (pointer: fine) {
+  .tile:hover {
+    z-index: 3;
+    transform: scale(1.07);
+    box-shadow: 0 22px 48px rgba(0, 0, 0, .66), 0 0 0 1px rgba(245, 245, 245, .09);
+  }
+  .tile:hover .tile__overlay { opacity: 1; }
+  .tile:hover .art__title { opacity: 0; }
+  .grid:has(.tile:hover) .tile:not(:hover) { opacity: .55; }
+}
+
+.grid.is-intro .grid__item {
+  animation: tile-in .55s var(--ease) backwards;
+  animation-delay: calc(var(--i, 0) * 45ms + 80ms);
+}
+@keyframes tile-in {
+  from { opacity: 0; transform: translateY(14px); }
+}
+
+.empty { margin: 0; padding: 56px 16px; text-align: center; color: var(--muted); }
+
+.art { width: 100%; height: 100%; }
+.art text { font-family: var(--sans); }
+
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 28px 16px 40px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.site-footer p { margin: 0; }
+.site-footer a { text-underline-offset: 4px; }
+.site-footer a:hover { color: var(--text); }
+
+.noscript { padding: 24px 16px; color: var(--muted); }
+
+/* ---------- Post view (modal) ---------- */
+.post {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  background: transparent;
+  color: var(--text);
+}
+.post::backdrop { background: rgba(0, 0, 0, .84); }
+.post[open] { display: grid; place-items: center; }
+.post[open]::backdrop { animation: fade-in .2s ease; }
+.post[open] .post__shell { animation: post-in .28s var(--ease); }
+@keyframes fade-in { from { opacity: 0; } }
+@keyframes post-in { from { opacity: 0; transform: translateY(10px) scale(.985); } }
+
+.post__bar { display: contents; }
+.post__count { display: none; }
+
+.post__nav, .post__close {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgba(23, 23, 23, .92);
+  cursor: pointer;
+  transition: border-color .2s ease, background-color .2s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .post__nav:hover, .post__close:hover { border-color: #4a4a4a; background: #1f1f1f; }
+}
+.post__close { top: 16px; right: 16px; }
+.post__nav { top: 50%; transform: translateY(-50%); }
+.post__nav--prev { left: 14px; }
+.post__nav--next { right: 14px; }
+
+.post__shell {
+  --h: min(720px, calc(100vh - 64px));
+  --h: min(720px, calc(100dvh - 64px));
+  --cap: clamp(300px, 33vw, 400px);
+  --mw: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--cap);
+  width: min(calc(var(--h) * var(--mw) + var(--cap)), calc(100vw - 144px));
+  height: var(--h);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+.post__media {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  background: #000;
+}
+.stage { position: relative; display: flex; flex: 1; min-height: 0; }
+.track {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.track::-webkit-scrollbar { display: none; }
+.track:focus-visible { outline-offset: -3px; }
+.slide {
+  position: relative;
+  flex: 0 0 100%;
+  min-width: 0;
+  overflow: hidden;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+.fill { position: absolute; inset: 0; width: 100%; height: 100%; }
+img.fill { object-fit: contain; }
+
+.vid { display: grid; place-items: center; }
+.vid__frame { position: relative; width: 100%; height: 100%; overflow: hidden; background: #000; }
+.vid__frame--ph { height: auto; aspect-ratio: 16 / 9; }
+.vid__frame--reel { width: auto; height: 100%; max-width: 100%; aspect-ratio: 9 / 16; }
+.vid__frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #000; }
+.vid__frame video { display: block; width: 100%; height: 100%; object-fit: contain; background: #000; }
+.vid__frame .art { position: absolute; inset: 0; }
+.vid__note {
+  position: absolute;
+  left: 10px; right: 10px; top: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(10, 10, 10, .78);
+  color: var(--text);
+  font-size: 12.5px;
+  line-height: 1.4;
+}
+
+.sound {
+  position: absolute;
+  top: 10px; right: 10px;
+  display: grid;
+  place-items: center;
+  width: 38px; height: 38px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(10, 10, 10, .72);
+  color: #fff;
+  cursor: pointer;
+}
+.sound .i { width: 18px; height: 18px; }
+.sound[aria-pressed="true"] { color: var(--accent); }
+
+.chip {
+  position: absolute;
+  left: 10px; bottom: 10px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(10, 10, 10, .78);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.car {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 34px; height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(245, 245, 245, .94);
+  color: #0a0a0a;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: opacity .2s ease;
+}
+.car .i { width: 18px; height: 18px; }
+.car--prev { left: 10px; }
+.car--next { right: 10px; }
+.car[aria-disabled="true"] { opacity: .28; cursor: default; }
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  padding: 6px 0;
+  background: #000;
+}
+.dot {
+  display: grid;
+  place-items: center;
+  width: 20px; height: 20px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.dot::after {
+  content: "";
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #555;
+  transition: background-color .2s ease, transform .2s ease;
+}
+.dot[aria-current="true"]::after { background: var(--accent); transform: scale(1.2); }
+
+.post__panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  border-left: 1px solid var(--line);
+  background: var(--surface);
+}
+.post__author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+}
+.who { display: grid; margin: 0; line-height: 1.25; min-width: 0; }
+.who b { font-size: 14px; font-weight: 650; }
+.who span { font-size: 12.5px; color: var(--muted); }
+.post__index { margin-left: auto; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.post__body {
+  flex: 1;
+  min-height: 0;
+  padding: 20px 16px 24px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.post__title {
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 720;
+  line-height: 1.15;
+  letter-spacing: -.02em;
+}
+.post__desc { margin: 0; max-width: 62ch; }
+
+.facts {
+  margin: 20px 0 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.facts__row {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  gap: 12px;
+  padding: 11px 12px;
+  border-top: 1px solid var(--line);
+}
+.facts__row:first-child { border-top: 0; }
+.facts dt { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.facts dd { margin: 0; font-size: 14.5px; }
+.facts__row--result { background: rgba(255, 107, 74, .07); }
+.facts__row--result dt { color: var(--accent); font-weight: 600; }
+.facts__row--result dd { font-weight: 650; }
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 12px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.tag {
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: 14px;
+  cursor: pointer;
+}
+.tag:hover { color: var(--accent); }
+
+.post__links { display: grid; justify-items: start; gap: 12px; margin-top: 16px; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid #3a3a3a;
+  border-radius: 999px;
+  background: var(--surface-2);
+  font-size: 14.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color .2s ease, color .2s ease;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn .i { width: 16px; height: 16px; }
+.textlink {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13.5px;
+  color: var(--muted);
+  text-decoration: underline;
+  text-decoration-color: #4a4a4a;
+  text-underline-offset: 4px;
+}
+.textlink:hover { color: var(--text); text-decoration-color: currentColor; }
+.textlink .i { width: 16px; height: 16px; }
+
+/* ---------- Larger screens ---------- */
+@media (min-width: 700px) {
+  :root { --gap: 6px; --tile-r: 5px; }
+  body { font-size: 15.5px; }
+  .wrap { padding: 0 20px; }
+  .profile {
+    grid-template-areas: "avatar id" "avatar stats" "avatar bio";
+    column-gap: 56px;
+    row-gap: 16px;
+    align-items: start;
+    padding: 56px 12px 14px;
+  }
+  .avatar:not(.avatar--sm) { --av: 152px; margin: 4px 0 0 20px; padding: 5px; }
+  .stats { justify-content: flex-start; gap: 34px; text-align: left; }
+  .stats li { display: flex; align-items: baseline; gap: 6px; }
+  .stats b { font-size: 17px; }
+  .stats span { font-size: 15px; }
+  .handle { font-size: 15px; }
+  .highlights { gap: 26px; padding: 26px 12px 30px; scroll-padding-inline: 12px; }
+  .hl { width: 80px; font-size: 13px; }
+  .hl__ring { width: 78px; height: 78px; }
+  .hl .i { width: 26px; height: 26px; }
+  .workbar { padding: 0 12px; }
+  .tile__badge { top: 10px; right: 10px; width: 30px; height: 30px; }
+  .tile__badge .i { width: 16px; height: 16px; }
+  .tile__overlay { padding: 18px; }
+  .tile__title { font-size: 18px; }
+  .site-footer { padding: 36px 12px 56px; }
+}
+
+/* ---------- Post view on phones: full screen, media on top ---------- */
+@media (max-width: 820px) {
+  .post[open] { display: flex; flex-direction: column; place-items: stretch; background: var(--bg); }
+  .post__bar {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 2px;
+    height: 52px;
+    padding: 0 6px 0 16px;
+    border-bottom: 1px solid var(--line);
+    background: var(--bg);
+  }
+  .post__count {
+    display: block;
+    margin: 0 auto 0 0;
+    font-size: 13.5px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .post__index { display: none; }
+  .post__nav, .post__close {
+    position: static;
+    transform: none;
+    border-color: transparent;
+    background: none;
+  }
+  .post__shell {
+    display: block;
+    flex: 1;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border: 0;
+    border-radius: 0;
+    background: var(--bg);
+  }
+  .post__media { display: block; }
+  .stage { display: block; }
+  .track { aspect-ratio: var(--ar, 1 / 1); }
+  .post__shell.is-reel .track { aspect-ratio: 9 / 16; }
+  .post__panel { display: block; border-left: 0; background: var(--bg); }
+  .post__body { overflow: visible; padding-bottom: 40px; }
+}
+
+/* ---------- Reduced motion: no scale, simple fades ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+  .tile { transition: opacity .2s linear, box-shadow .2s linear; }
+  .tile:hover { transform: none; }
+}
+</style>
+</head>
+
+<body id="top">
+<a class="skip" href="#work">Skip to projects</a>
+
+<div class="wrap">
+
+  <!-- ============ PROFILE HEADER ============ -->
+  <header class="profile">
+    <span class="avatar">
+      <span class="avatar__face" data-avatar data-alt="Juan Meneses"><span aria-hidden="true">JM</span></span>
+    </span>
+
+    <div class="profile__id">
+      <h1>Juan Meneses</h1>
+      <p class="handle" id="handle">@juanmeneses</p>
+    </div>
+
+    <ul class="stats" role="list" aria-label="Career stats">
+      <li><b id="stat-projects">11</b> <span>Projects</span></li>
+      <li><b>3+</b> <span>Years</span></li>
+      <li><b>2</b> <span>Languages</span></li>
+    </ul>
+
+    <div class="bio">
+      <!-- EDIT: bio text. Keep it to 3 or 4 short lines. -->
+      <p>Digital Marketing Coordinator.</p>
+      <p>Social, video, design and campaigns.</p>
+      <p>Bilingual (EN/ES). Houston, TX.</p>
+
+      <p class="bio__links">
+        <!-- EDIT: resume path and contact email. -->
+        <a href="assets/resume.pdf" target="_blank" rel="noopener">
+          <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1"/></svg>
+          Resume<span class="sr-only"> (PDF, opens in a new tab)</span>
+        </a>
+        <a href="mailto:your.email@example.com">
+          <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="M4.5 7.5l7.5 5.5 7.5-5.5"/></svg>
+          Contact
+        </a>
+      </p>
+
+      <!-- OPTIONAL LINE: delete this whole <p> to remove it. -->
+      <p class="bio__aside">Yes, this looks like a social profile. Here's what a social profile won't show you: the results.</p>
+    </div>
+  </header>
+
+  <!-- ============ HIGHLIGHT CIRCLES ============ -->
+  <nav aria-label="Filter projects by category">
+    <ul class="highlights" id="highlights" role="list"></ul>
+  </nav>
+
+  <!-- ============ GRID ============ -->
+  <main id="work" tabindex="-1">
+    <div class="workbar">
+      <h2>Work</h2>
+      <p class="workbar__status" id="status" role="status" aria-live="polite"></p>
+      <button class="workbar__clear" id="clear-filter" type="button" hidden></button>
+    </div>
+    <ul class="grid is-intro" id="grid" role="list"></ul>
+    <p class="empty" id="empty" hidden>Nothing here yet. Choose "All" to see every project.</p>
+    <noscript><p class="noscript">Turn on JavaScript to see the project grid, or use the Resume link above.</p></noscript>
+  </main>
+
+  <footer class="site-footer">
+    <p>Juan Meneses, Houston, TX</p>
+    <a href="#top">Back to top</a>
+  </footer>
+</div>
+
+<!-- ============ POST VIEW ============ -->
+<dialog class="post" id="post" aria-labelledby="post-title">
+  <div class="post__bar">
+    <p class="post__count" id="post-count" aria-hidden="true"></p>
+    <button class="post__nav post__nav--prev" id="post-prev" type="button" aria-label="Previous project">
+      <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14.5 5.5L8 12l6.5 6.5"/></svg>
+    </button>
+    <button class="post__nav post__nav--next" id="post-next" type="button" aria-label="Next project">
+      <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9.5 5.5L16 12l-6.5 6.5"/></svg>
+    </button>
+    <button class="post__close" id="post-close" type="button" aria-label="Close project">
+      <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+
+  <article class="post__shell" id="post-shell">
+    <div class="post__media" id="post-media"></div>
+    <div class="post__panel">
+      <header class="post__author">
+        <span class="avatar avatar--sm"><span class="avatar__face" data-avatar data-alt=""><span aria-hidden="true">JM</span></span></span>
+        <p class="who"><b id="post-handle">@juanmeneses</b><span id="post-type"></span></p>
+        <span class="post__index" id="post-index" aria-hidden="true"></span>
+      </header>
+      <div class="post__body" id="post-body"></div>
+    </div>
+  </article>
+  <p class="sr-only" id="post-live" aria-live="polite"></p>
+</dialog>
+
+<script>
+(function () {
+  'use strict';
+
+  /* =====================================================================
+     EDIT ZONE
+     ---------------------------------------------------------------------
+     SWAP THE PROFILE PHOTO
+       Set PROFILE_PHOTO to your image path. A square photo works best.
+       Example:  const PROFILE_PHOTO = "assets/profile.jpg";
+       Leave it as "" to keep the "JM" initials placeholder.
+
+     REPLACE THE RESUME
+       Save your PDF as assets/resume.pdf. To use a different name, change
+       the href on the "Resume" link in the header HTML above.
+
+     ADD A PROJECT
+       Copy one { ... } object below, paste it into the PROJECTS array and
+       fill it in. Nothing else needs to change. Fields:
+
+       id            Unique number. Also the share link: yoursite/#post-ID
+       title         Project name
+       type          "image" | "carousel" | "video" | "reel" | "deck" | "campaign"
+                     ("reel" is a vertical 9:16 video)
+       categories    Any of: "social", "video", "design", "campaigns", "decks"
+       thumbnail     Square image for the grid, e.g. "assets/projects/x-thumb.jpg"
+       media         Image and/or video paths shown in the post view, in order.
+                     One path = single view. Several = carousel.
+                     Video files end in .mp4, .webm, .mov or .m4v.
+       description   2 to 3 sentences
+       role, tools, result   The three labeled rows
+       tags          Skill tags, written without the "#"
+       originalUrl   Link to the live post        ("" hides the button)
+       gondolaUrl    "Verified on Gondola" link   ("" hides it)
+       caseStudyUrl  "Read full case study" link  ("" hides it)
+       behindTheScenes   Optional. One image or video path, shown as the
+                         final slide. Delete the line or leave "" to skip.
+
+       posters       Optional cover images for videos, in the same order as media
+       aspect        Optional shape of the post view: "1/1" (default), "4/5", "9/16"
+       Embedded players also work in media/thumbnail: Adobe (Behance) video,
+       YouTube embed or Vimeo player links.
+
+       Any thumbnail or media path left as "" or "placeholder" shows
+       generated sample artwork instead of a file.
+     ===================================================================== */
+
+  const PROFILE_PHOTO = "";
+
+  /* Graphics live in "assets", videos and their cover images in "assets/video".
+     Projects 8 and 11 still play through Adobe's embedded player (from Behance).
+     To switch one to your own file, put the MP4 in "assets/video" and replace
+     the CCV line with its path, e.g. "assets/video/athlete-recap.mp4". */
+  const CCV = "https://www-ccv.adobe.io/v1/player/ccv/";
+
+  const PROJECTS = [
+    {
+      id: 1,
+      title: "College Commitments Campaign",
+      type: "campaign",
+      categories: ["campaigns", "design", "social"],
+      aspect: "4/5",
+      thumbnail: "assets/commitments-1.png",
+      media: [
+        "assets/commitments-1.png",
+        "assets/commitments-2.png",
+        "assets/commitments-3.png",
+        "assets/commitments-4.png"
+      ],
+      description: "Recruiting-season graphics for HTX Soccer celebrating college commitments, from the club-wide total since 2008 to class-by-class milestones and individual signing announcements. A shared black-and-gold system ties every post into one campaign.",
+      role: "[Replace] Your role, e.g. concept, design, copywriting",
+      tools: "Adobe Creative Suite",
+      result: "[Replace] [+XX% engagement] across the campaign",
+      tags: ["CampaignStrategy", "GraphicDesign", "YouthSports"],
+      originalUrl: "",
+      gondolaUrl: "",
+      caseStudyUrl: ""
+    },
+    {
+      id: 2,
+      title: "Comets 10.29 Teasers",
+      type: "reel",
+      categories: ["video", "campaigns", "social"],
+      thumbnail: "assets/video/comets-basketball.jpg",
+      media: [
+        "assets/video/comets-basketball.mp4",
+        "assets/video/comets-rings.mp4",
+        "assets/video/comets-zipup.mp4",
+        "assets/video/comets-skyline.mp4"
+      ],
+      posters: [
+        "assets/video/comets-basketball.jpg",
+        "assets/video/comets-rings.jpg",
+        "assets/video/comets-zipup.jpg",
+        "assets/video/comets-skyline.jpg"
+      ],
+      description: "A four-part teaser series that builds to a single date: a game ball, championship rings, a retro zip-up and the Houston skyline, each landing on 10.29. Swipe for all four.",
+      role: "[Replace] Your role, e.g. shooting, editing, captions",
+      tools: "Adobe Creative Suite",
+      result: "[Replace] [XX,XXX views] across the teaser series",
+      tags: ["ShortFormVideo", "LaunchCampaign", "VideoEditing"],
+      originalUrl: "",
+      gondolaUrl: "",
+      caseStudyUrl: ""
+    },
+    {
+      id: 3,
+      title: "FIFA Fan Festival Houston",
+      type: "carousel",
+      categories: ["social", "design", "campaigns"],
+      aspect: "4/5",
+      thumbnail: "assets/fanfest-2.png",
+      media: [
+        "assets/fanfest-1.png",
+        "assets/fanfest-2.png",
+        "assets/fanfest-3.png",
+        "assets/fanfest-4.png"
+      ],
+      description: "Social graphics for FIFA Fan Festival Houston during the 2026 World Cup: final-match day details, the festival's one-month run, a bracket prediction with Bun B, and a welcome for the DR Congo team's Houston base camp.",
+      role: "[Replace] Your role, e.g. concept, design, copywriting",
+      tools: "Adobe Creative Suite",
+      result: "[Replace] [XXX,XXX impressions] across festival channels",
+      tags: ["SocialMedia", "EventMarketing", "GraphicDesign"],
+      originalUrl: "",
+      gondolaUrl: "",
+      caseStudyUrl: ""
+    },
+    {
+      id: 4,
+      title: "Questions with Cam",
+      type: "reel",
+      categories: ["video", "social"],
+      thumbnail: "assets/video/cam-bedtime-routine.jpg",
+      media: [
+        "assets/video/cam-bedtime-routine.mp4",
+        "assets/video/cam-sleeps.mp4"
+      ],
+      posters: [
+        "assets/video/cam-bedtime-routine.jpg",
+        "assets/video/cam-sleeps.jpg"
+      ],
+      description: "A short-form athlete Q&A series for Mattress Firm, built around quick questions, on-screen captions for sound-off viewing and a branded end card.",
+      role: "[Replace] Your role, e.g. shooting, editing, captions",
+      tools: "Adobe Creative Suite",
+      result: "[Replace] [XX,XXX views] with [XX% watch-through]",
+      tags: ["ShortFormVideo", "BrandPartnerships", "VideoEditing"],
+      originalUrl: "",
+      gondolaUrl: "",
+      caseStudyUrl: ""
+    },
+    {
+      id: 5,
+      title: "Coaches vs. Cancer",
+      type: "campaign",
+      categories: ["campaigns", "design", "social"],
+      aspect: "4/5",
+      thumbnail: "assets/coaches-1.png",
+      media: [
+        "assets/coaches-1.png",
+        "assets/coaches-2.png",
+        "assets/coaches-3.png",
+        "assets/coaches-4.png",
+        "assets/coaches-5.png"
+      ],
+      description: "Campaign graphics for the American Cancer Society and NABC Coaches vs. Cancer program: a tournament good-luck post for the coaches and a series featuring custom school-themed sneakers.",
+      role: "[Replace] Your role, e.g. concept, design, copywriting",
+      tools: "Adobe Creative Suite",
+      result: "[Replace] [+XX% engagement] or [$XX,XXX raised]",
+      tags: ["CauseMarketing", "GraphicDesign", "CampaignStrategy"],
+      originalUrl: "",
+      gondolaUrl: "",
+      caseStudyUrl: ""
+    },
+    {
+      id: 6,
+      title: "HTX Soccer Media Day",
+      type: "reel",
+      categories: ["video", "social"],
+      thumbnail: "assets/video/htx-media-day.jpg",
+      media: [
+        "assets/video/htx-media-day.mp4"
+      ],
+      posters: [
+        "assets/video/htx-media-day.jpg"
+      ],
+      description: "Behind-the-scenes reel from HTX Soccer's 2026 media day, following players as they unbox and show off the new TDECU-sponsored kits between shoots.",
+      role: "[Replace] Your role, e.g. shooting, editing, captions",
+      tools: "Adobe Creative Suite",
+      result: "[Replace] [XX,XXX views]",
+      tags: ["BehindTheScenes", "VideoEditing", "YouthSports"],
+      originalUrl: "",
+      gondolaUrl: "",
+      caseStudyUrl: ""
+    },
+    {
+      id: 7,
+      title: "HTX Soccer Player Spotlights",
+      type: "carousel",
+      categories: ["design", "social"],
+      aspect: "4/5",
+      thumbnail: "assets/spotlights-1.png",
+      media: [
+        "assets/spotlights-1.png",
+        "assets/spotlights-2.png",
+        "assets/spotlights-3.png",
+        "assets/spotlights-4.png"
+      ],
+      description: "Athlete announcement graphics for HTX Soccer, including a U-17 Women's National Team call-up and an Austin FC Academy trial invite, plus a registration post for the club's technical and fitness camps.",
+      role: "[Replace] Your role, e.g. concept, design, copywriting",
+      tools: "Adobe Creative Suite",
+      result: "[Replace] [+XX% engagement] compared with typical club posts",
+      tags: ["GraphicDesign", "AthleteContent", "SocialMedia"],
+      originalUrl: "",
+      gondolaUrl: "",
+      caseStudyUrl: ""
+    },
+    {
+      id: 8,
+      title: "Fan Festival Venue Reels",
+      type: "reel",
+      categories: ["video", "social"],
+      thumbnail: CCV + "RPu7ZIqvZ5p/embed?api_key=behance1&bgcolor=%23000000",
+      media: [
+        CCV + "RPu7ZIqvZ5p/embed?api_key=behance1&bgcolor=%23000000",
+        CCV + "Cmchr3bstJx/embed?api_key=behance1&bgcolor=%23000000",
+        CCV + "3MuHpCjUHr8/embed?api_key=behance1&bgcolor=%23000000"
+      ],
+      description: "Vertical walk-through reels introducing FIFA Fan Festival Houston spaces, including Houston Hall, Club 104 and the giant boot installation. Swipe for all three.",
+      role: "[Replace] Your role, e.g. shooting, editing, captions",
+      tools: "Adobe Creative Suite",
+      result: "[Replace] [XX,XXX views] across the series",
+      tags: ["ShortFormVideo", "VideoEditing", "EventMarketing"],
+      originalUrl: "",
+      gondolaUrl: "",
+      caseStudyUrl: ""
+    },
+    {
+      id: 9,
+      title: "Football Gameday Graphics",
+      type: "carousel",
+      categories: ["design", "social"],
+      aspect: "4/5",
+      thumbnail: "assets/gameday-1.png",
+      media: [
+        "assets/gameday-1.png",
+        "assets/gameday-2.png",
+        "assets/gameday-3.png"
+      ],
+      description: "Home opener and gameday graphics built around the mascot, player photography and bold scoreboard type, with kickoff details readable at a glance.",
+      role: "[Replace] Your role, e.g. concept, design, copywriting",
+      tools: "Adobe Creative Suite",
+      result: "[Replace] [+XX% engagement] on gameday posts",
+      tags: ["GraphicDesign", "SportsMarketing", "SocialMedia"],
+      originalUrl: "",
+      gondolaUrl: "",
+      caseStudyUrl: ""
+    },
+    {
+      id: 10,
+      title: "TDECU Member Gift Activation",
+      type: "campaign",
+      categories: ["campaigns", "design"],
+      aspect: "9/16",
+      thumbnail: "assets/tdecu-1.png",
+      media: [
+        "assets/tdecu-1.png",
+        "assets/tdecu-2.png"
+      ],
+      description: "Sponsor activation graphics for TDECU's member gift giveaways at Houston Cougars and Houston Texans home games, telling members exactly where and when to pick up.",
+      role: "[Replace] Your role, e.g. concept, design, copywriting",
+      tools: "Adobe Creative Suite",
+      result: "[Replace] [X,XXX gifts redeemed]",
+      tags: ["SponsorActivation", "GraphicDesign", "CampaignStrategy"],
+      originalUrl: "",
+      gondolaUrl: "",
+      caseStudyUrl: ""
+    },
+    {
+      id: 11,
+      title: "Athlete Appearance Recap",
+      type: "reel",
+      categories: ["video", "social"],
+      thumbnail: CCV + "3F5cXJgsYQA/embed?api_key=behance1&bgcolor=%23000000",
+      media: [
+        CCV + "3F5cXJgsYQA/embed?api_key=behance1&bgcolor=%23000000"
+      ],
+      description: "An event recap reel covering an athlete appearance, from arrivals and a panel conversation to fan meet-and-greets and autograph signings.",
+      role: "[Replace] Your role, e.g. shooting, editing, captions",
+      tools: "Adobe Creative Suite",
+      result: "[Replace] [XX,XXX views]",
+      tags: ["EventRecap", "VideoEditing", "ShortFormVideo"],
+      originalUrl: "",
+      gondolaUrl: "",
+      caseStudyUrl: ""
+    }
+  ];
+
+  /* ======================= END OF EDIT ZONE ============================ */
+
+  const CATEGORIES = [
+    { id: 'all',       label: 'All',       icon: 'grid' },
+    { id: 'social',    label: 'Social',    icon: 'chat' },
+    { id: 'video',     label: 'Video',     icon: 'film' },
+    { id: 'design',    label: 'Design',    icon: 'shapes' },
+    { id: 'campaigns', label: 'Campaigns', icon: 'megaphone' },
+    { id: 'decks',     label: 'Decks',     icon: 'screen' }
+  ];
+
+  const TYPE_LABEL = {
+    image: 'Graphic', carousel: 'Carousel', video: 'Video',
+    reel: 'Reel', deck: 'Pitch deck', campaign: 'Campaign'
+  };
+
+  const ICONS = {
+    grid: '<rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/>',
+    chat: '<path d="M5 6.5A2.5 2.5 0 0 1 7.5 4h9A2.5 2.5 0 0 1 19 6.5v6a2.5 2.5 0 0 1-2.5 2.5H11l-4 3.5V15a2.5 2.5 0 0 1-2-2.5z"/>',
+    film: '<rect x="3.5" y="5.5" width="17" height="13" rx="3"/><path d="M10.5 9.5v5l4-2.5z"/>',
+    shapes: '<circle cx="8" cy="8" r="3.5"/><rect x="13" y="13" width="7" height="7" rx="1.2"/><path d="M16.5 4.5l3.5 6h-7z"/><path d="M4.5 19.5l6-6"/>',
+    megaphone: '<path d="M4 10v4a1 1 0 0 0 1 1h2.5l7.5 4V5L7.5 9H5a1 1 0 0 0-1 1z"/><path d="M18 9.5a3.5 3.5 0 0 1 0 5"/><path d="M8 15v3.5"/>',
+    screen: '<rect x="3.5" y="4.5" width="17" height="11" rx="1.5"/><path d="M12 15.5V19M8.5 19.5h7"/><path d="M8 12v-1.5M12 12V8.5M16 12v-2.5"/>',
+    left: '<path d="M14.5 5.5L8 12l6.5 6.5"/>',
+    right: '<path d="M9.5 5.5L16 12l-6.5 6.5"/>',
+    close: '<path d="M6 6l12 12M18 6L6 18"/>',
+    stack: '<rect x="8" y="3.5" width="12.5" height="12.5" rx="2.5" fill="currentColor"/><path d="M16 20.5H6.5a3 3 0 0 1-3-3V8"/>',
+    playSolid: '<path d="M8 5.5v13a1 1 0 0 0 1.52.86l10.5-6.5a1 1 0 0 0 0-1.72L9.52 4.64A1 1 0 0 0 8 5.5z" fill="currentColor" stroke="none"/>',
+    soundOn: '<path d="M4 9.5v5h3.5l4.5 4v-13l-4.5 4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/>',
+    soundOff: '<path d="M4 9.5v5h3.5l4.5 4v-13l-4.5 4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/>',
+    external: '<path d="M9 6h9v9M18 6L7 17"/>',
+    check: '<circle cx="12" cy="12" r="8.5"/><path d="M8.5 12.2l2.4 2.4 4.6-5"/>'
+  };
+
+  /* ---------- Small helpers ---------- */
+  const $ = (sel, scope) => (scope || document).querySelector(sel);
+  const root = document.documentElement;
+  const mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const mqHover = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const reduced = () => mqReduce.matches;
+  const EASE = 'cubic-bezier(.2,.7,.2,1)';
+
+  const icon = (name) =>
+    '<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + ICONS[name] + '</svg>';
+
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  function h(tag, attrs) {
+    const el = document.createElement(tag);
+    if (attrs) {
+      for (const key of Object.keys(attrs)) {
+        const v = attrs[key];
+        if (v == null || v === false) continue;
+        if (key === 'class') el.className = v;
+        else if (key === 'text') el.textContent = v;
+        else if (key === 'html') el.innerHTML = v;
+        else el.setAttribute(key, v === true ? '' : v);
+      }
+    }
+    for (let i = 2; i < arguments.length; i++) {
+      const kid = arguments[i];
+      if (kid != null && kid !== false) el.append(kid);
+    }
+    return el;
+  }
+
+  const isPlaceholder = (src) => !src || /^placeholder$/i.test(String(src).trim());
+  const isVideo = (src) => /\.(mp4|webm|mov|m4v|ogv)(\?|#|$)/i.test(String(src || ''));
+  /* Shown when an image path doesn't load, so a missing file is obvious. */
+  const missing = (src, cls) => h('span', { class: 'missing' + (cls ? ' ' + cls : '') },
+    h('b', { text: 'Image not found' }), h('span', { text: src }));
+  const isEmbed = (src) => /^https:\/\/(www-ccv\.adobe\.io\/|www\.youtube(-nocookie)?\.com\/embed\/|player\.vimeo\.com\/)/i.test(String(src || ''));
+  const isVideoType = (p) => p.type === 'video' || p.type === 'reel';
+  const safeUrl = (u) => (u && !/^\s*(javascript|data|vbscript):/i.test(u) ? String(u).trim() : '');
+  const byId = (id) => PROJECTS.find((p) => String(p.id) === String(id));
+  const pad = (n) => String(n).padStart(2, '0');
+
+  /* ---------- Generated sample artwork ---------- */
+  const PALETTES = {
+    ink:   { bg: ['#1d1d1d', '#0d0d0d'], fg: '#f5f5f5', dim: '#3a3a3a', pop: '#ff6b4a', text: '#f5f5f5', sub: '#a8a8a8' },
+    bone:  { bg: ['#efe9dd', '#d9d0bf'], fg: '#141414', dim: '#bdb3a0', pop: '#ff6b4a', text: '#141414', sub: '#5c564b' },
+    ember: { bg: ['#3c1b13', '#140907'], fg: '#ff6b4a', dim: '#5e2b1f', pop: '#f5f5f5', text: '#f5f5f5', sub: '#cfa89d' },
+    coral: { bg: ['#ff7a5c', '#f0522f'], fg: '#0a0a0a', dim: '#d9431f', pop: '#f5f5f5', text: '#0a0a0a', sub: '#4a160a' },
+    steel: { bg: ['#232c34', '#0d1216'], fg: '#b9c9d6', dim: '#34424e', pop: '#ff6b4a', text: '#f5f5f5', sub: '#9fb0bd' }
+  };
+  const PALETTE_ORDER = ['ink', 'bone', 'ember', 'coral', 'steel', 'ink', 'steel', 'ember', 'bone'];
+  const MOTIF_ORDER = ['rings', 'cards', 'bars', 'burst', 'slides', 'disc', 'bubbles', 'arcs', 'dots'];
+  const VARIANT_MOTIFS = ['rings', 'cards', 'bars', 'burst', 'arcs', 'dots', 'slides'];
+
+  const MOTIFS = {
+    rings: (c) =>
+      '<g fill="none" stroke="' + c.fg + '" stroke-width="2"><circle cx="278" cy="150" r="42"/><circle cx="278" cy="150" r="86" opacity=".7"/><circle cx="278" cy="150" r="130" opacity=".45"/><circle cx="278" cy="150" r="174" opacity=".25"/></g>' +
+      '<circle cx="278" cy="150" r="13" fill="' + c.pop + '"/>',
+    cards: (c) =>
+      '<g transform="translate(266 148)"><rect x="-70" y="-92" width="140" height="184" rx="14" fill="' + c.dim + '" transform="rotate(-17)"/>' +
+      '<rect x="-70" y="-92" width="140" height="184" rx="14" fill="' + c.fg + '" transform="rotate(-5)"/>' +
+      '<rect x="-70" y="-92" width="140" height="184" rx="14" fill="' + c.pop + '" transform="rotate(8)"/></g>',
+    bars: (c) => {
+      const hts = [56, 118, 196, 150, 236, 104, 176, 84, 132];
+      return hts.map((ht, i) =>
+        '<rect x="' + (146 + i * 26) + '" y="' + (150 - ht / 2) + '" width="13" height="' + ht + '" rx="6.5" fill="' + (i === 4 ? c.pop : c.fg) + '" opacity="' + (i === 4 ? 1 : 0.45 + (i % 3) * 0.2) + '"/>'
+      ).join('');
+    },
+    burst: (c) => {
+      let rays = '';
+      for (let i = 0; i < 18; i++) {
+        const a = (i * Math.PI) / 9;
+        const r = i % 2 ? 150 : 112;
+        rays += '<line x1="' + (280 + Math.cos(a) * 48).toFixed(1) + '" y1="' + (150 + Math.sin(a) * 48).toFixed(1) +
+                '" x2="' + (280 + Math.cos(a) * r).toFixed(1) + '" y2="' + (150 + Math.sin(a) * r).toFixed(1) + '"/>';
+      }
+      return '<g stroke="' + c.fg + '" stroke-width="7" stroke-linecap="round">' + rays + '</g><circle cx="280" cy="150" r="24" fill="' + c.pop + '"/>';
+    },
+    slides: (c) =>
+      '<rect x="178" y="50" width="194" height="122" rx="10" fill="' + c.dim + '"/>' +
+      '<rect x="130" y="90" width="226" height="146" rx="10" fill="' + c.bg[1] + '" stroke="' + c.fg + '" stroke-width="2"/>' +
+      '<line x1="154" y1="118" x2="232" y2="118" stroke="' + c.fg + '" stroke-width="6" stroke-linecap="round"/>' +
+      '<rect x="154" y="172" width="28" height="42" rx="3" fill="' + c.fg + '" opacity=".5"/>' +
+      '<rect x="194" y="152" width="28" height="62" rx="3" fill="' + c.fg + '" opacity=".75"/>' +
+      '<rect x="234" y="130" width="28" height="84" rx="3" fill="' + c.pop + '"/>' +
+      '<rect x="274" y="162" width="28" height="52" rx="3" fill="' + c.fg + '" opacity=".5"/>',
+    disc: (c) =>
+      '<circle cx="272" cy="152" r="118" fill="none" stroke="' + c.fg + '" stroke-width="2" opacity=".35"/>' +
+      '<circle cx="272" cy="152" r="78" fill="' + c.fg + '"/>' +
+      '<path d="M254 118v68l56-34z" fill="' + c.bg[1] + '"/>' +
+      '<circle cx="355" cy="68" r="11" fill="' + c.pop + '"/>',
+    bubbles: (c) =>
+      '<rect x="150" y="54" width="150" height="104" rx="26" fill="' + c.fg + '"/><path d="M182 148l-8 40 44-34z" fill="' + c.fg + '"/>' +
+      '<text x="225" y="123" text-anchor="middle" font-size="46" font-weight="800" fill="' + c.bg[1] + '">EN</text>' +
+      '<rect x="222" y="132" width="150" height="104" rx="26" fill="' + c.pop + '"/><path d="M340 226l10 38-46-32z" fill="' + c.pop + '"/>' +
+      '<text x="297" y="201" text-anchor="middle" font-size="46" font-weight="800" fill="' + c.bg[1] + '">ES</text>',
+    arcs: (c) => {
+      const s = 66, ox = 172, oy = 44;
+      const fills = [c.fg, c.dim, c.pop, c.dim, c.fg, c.fg, c.fg, c.pop, c.dim];
+      const turns = [0, 1, 2, 3, 2, 0, 1, 3, 0];
+      let out = '';
+      for (let i = 0; i < 9; i++) {
+        const x = ox + (i % 3) * s, y = oy + Math.floor(i / 3) * s;
+        const d = [
+          'M' + x + ' ' + y + 'L' + (x + s) + ' ' + y + 'A' + s + ' ' + s + ' 0 0 1 ' + x + ' ' + (y + s) + 'Z',
+          'M' + (x + s) + ' ' + y + 'L' + (x + s) + ' ' + (y + s) + 'A' + s + ' ' + s + ' 0 0 1 ' + x + ' ' + y + 'Z',
+          'M' + (x + s) + ' ' + (y + s) + 'L' + x + ' ' + (y + s) + 'A' + s + ' ' + s + ' 0 0 1 ' + (x + s) + ' ' + y + 'Z',
+          'M' + x + ' ' + (y + s) + 'L' + x + ' ' + y + 'A' + s + ' ' + s + ' 0 0 1 ' + (x + s) + ' ' + (y + s) + 'Z'
+        ][turns[i]];
+        out += '<path d="' + d + '" fill="' + fills[i] + '"/>';
+      }
+      return out;
+    },
+    dots: (c) => {
+      let out = '';
+      for (let r = 0; r < 6; r++) for (let k = 0; k < 6; k++) {
+        out += '<circle cx="' + (188 + k * 36) + '" cy="' + (58 + r * 36) + '" r="5" fill="' + c.fg + '" opacity=".45"/>';
+      }
+      return out + '<circle cx="296" cy="148" r="52" fill="' + c.pop + '"/>';
+    },
+    viewfinder: (c) =>
+      '<g fill="none" stroke="' + c.fg + '" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M120 90V56h34M336 56h34v34M370 212v34h-34M154 246h-34v-34"/></g>' +
+      '<circle cx="245" cy="151" r="30" fill="none" stroke="' + c.dim + '" stroke-width="2"/>' +
+      '<path d="M245 131v40M225 151h40" stroke="' + c.dim + '" stroke-width="2"/>' +
+      '<circle cx="148" cy="84" r="7" fill="' + c.pop + '"/>'
+  };
+
+  function wrapText(text, max) {
+    const out = [];
+    let line = '';
+    String(text).split(/\s+/).forEach((word) => {
+      if (line && (line + ' ' + word).length > max) { out.push(line); line = word; }
+      else line = line ? line + ' ' + word : word;
+    });
+    if (line) out.push(line);
+    return out;
+  }
+
+  let artUid = 0;
+  function placeholderArt(p, o) {
+    o = o || {};
+    const w = o.w || 400, ht = o.h || 400;
+    const idx = Math.max(0, PROJECTS.indexOf(p));
+    const pal = PALETTES[o.bts ? 'ink' : PALETTE_ORDER[idx % PALETTE_ORDER.length]];
+    const motif = o.bts ? 'viewfinder'
+      : o.variant ? VARIANT_MOTIFS[(idx + o.variant) % VARIANT_MOTIFS.length]
+      : MOTIF_ORDER[idx % MOTIF_ORDER.length];
+    const gid = 'art-g' + (++artUid);
+    const note = o.total > 1 && !o.bts ? 'Sample ' + ((o.variant || 0) + 1) + ' of ' + o.total : 'Sample';
+    const lines = wrapText(o.bts ? 'Drafts, setup and process' : p.title, 14).slice(0, 3);
+    const y0 = ht - 34 - (lines.length - 1) * 42;
+    const title = lines.map((l, i) =>
+      '<text x="30" y="' + (y0 + i * 42) + '" font-size="36" font-weight="750" letter-spacing="-0.8" fill="' + pal.text + '">' + esc(l) + '</text>'
+    ).join('');
+    /* Motifs are drawn for a 400 x 400 square; re-centre them in tall or wide frames. */
+    const shift = w === ht ? [0, 0] : ht > w ? [w / 2 - 270, 120] : [w * 0.72 - 270, ht / 2 - 150];
+    const a11y = o.decorative ? 'aria-hidden="true" focusable="false"' : 'role="img" aria-label="' + esc(o.label || p.title) + '"';
+    return '<svg class="art" viewBox="0 0 ' + w + ' ' + ht + '" preserveAspectRatio="xMidYMid ' + (o.fit || 'slice') + '" ' + a11y + '>' +
+      '<defs><linearGradient id="' + gid + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' + pal.bg[0] + '"/><stop offset="1" stop-color="' + pal.bg[1] + '"/></linearGradient></defs>' +
+      '<rect width="' + w + '" height="' + ht + '" fill="url(#' + gid + ')"/>' +
+      '<g transform="translate(' + shift[0] + ' ' + shift[1] + ')">' + MOTIFS[motif](pal) + '</g>' +
+      (o.plain ? '' : '<text x="30" y="48" font-size="17" font-weight="600" fill="' + pal.sub + '">' + esc(note) + '</text>') +
+      '<g class="art__title">' + title + '</g></svg>';
+  }
+
+  /* ---------- Elements and state ---------- */
+  const grid = $('#grid');
+  const hlList = $('#highlights');
+  const statusEl = $('#status');
+  const clearBtn = $('#clear-filter');
+  const emptyEl = $('#empty');
+  const dialog = $('#post');
+  const shell = $('#post-shell');
+  const mediaEl = $('#post-media');
+  const bodyEl = $('#post-body');
+  const prevBtn = $('#post-prev');
+  const nextBtn = $('#post-next');
+  const closeBtn = $('#post-close');
+  const handle = ($('#handle').textContent || '').trim();
+
+  const state = {
+    filter: { kind: 'category', value: 'all' },
+    current: null,
+    trigger: null,
+    carousel: null,
+    afterClose: null
+  };
+
+  /* ---------- Profile photo ---------- */
+  function setAvatars() {
+    if (isPlaceholder(PROFILE_PHOTO)) return;
+    document.querySelectorAll('[data-avatar]').forEach((face) => {
+      const img = new Image();
+      img.alt = face.getAttribute('data-alt') || '';
+      img.decoding = 'async';
+      img.addEventListener('load', () => face.append(img));
+      img.src = PROFILE_PHOTO;
+    });
+  }
+
+  /* ---------- Filters ---------- */
+  const matches = (p) => {
+    const f = state.filter;
+    if (f.kind === 'tag') return (p.tags || []).includes(f.value);
+    return f.value === 'all' || (p.categories || []).includes(f.value);
+  };
+  const visibleProjects = () => PROJECTS.filter(matches);
+
+  function renderHighlights() {
+    CATEGORIES.forEach((c) => {
+      /* A filter with no projects is hidden until a project uses it. */
+      if (c.id !== 'all' && !PROJECTS.some((p) => (p.categories || []).includes(c.id))) return;
+      const btn = h('button', { class: 'hl', type: 'button', 'aria-pressed': c.id === 'all' ? 'true' : 'false', 'data-cat': c.id },
+        h('span', { class: 'hl__ring' }, h('span', { class: 'hl__disc', html: icon(c.icon) })),
+        h('span', { class: 'hl__label', text: c.label })
+      );
+      btn.addEventListener('click', () => applyFilter({ kind: 'category', value: c.id }));
+      hlList.append(h('li', null, btn));
+    });
+  }
+
+  function updateStatus() {
+    const f = state.filter;
+    const n = visibleProjects().length;
+    let text = n + (n === 1 ? ' project' : ' projects');
+    if (f.kind === 'tag') text += ' tagged #' + f.value;
+    else if (f.value !== 'all') text += ' in ' + (CATEGORIES.find((c) => c.id === f.value) || {}).label;
+    statusEl.textContent = text;
+    emptyEl.hidden = n > 0;
+    if (f.kind === 'tag') {
+      clearBtn.hidden = false;
+      clearBtn.innerHTML = '<span>#' + esc(f.value) + '</span>' + icon('close');
+      clearBtn.setAttribute('aria-label', 'Clear filter #' + f.value);
+    } else {
+      clearBtn.hidden = true;
+    }
+  }
+
+  let filterToken = 0;
+  function applyFilter(next) {
+    state.filter = next;
+    const token = ++filterToken;
+    hlList.querySelectorAll('.hl').forEach((b) => {
+      b.setAttribute('aria-pressed', String(next.kind === 'category' && b.dataset.cat === next.value));
+    });
+    grid.classList.remove('is-intro');
+    updateStatus();
+
+    const items = Array.from(grid.children);
+    const cancelAll = (li) => li.getAnimations().forEach((a) => a.cancel());
+    const keep = (li) => matches(byId(li.dataset.id));
+    items.forEach(cancelAll);
+
+    const commit = () => {
+      if (token !== filterToken) return;
+      const before = new Map(items.map((li) => [li, li.hidden ? null : li.getBoundingClientRect()]));
+      items.forEach((li) => { cancelAll(li); li.hidden = !keep(li); });
+      updateStatus();
+      if (reduced()) return;
+      items.forEach((li) => {
+        if (li.hidden) return;
+        const a = before.get(li);
+        const b = li.getBoundingClientRect();
+        if (!a) {
+          li.animate([{ opacity: 0, transform: 'scale(.94)' }, { opacity: 1, transform: 'none' }], { duration: 340, easing: EASE });
+        } else {
+          const dx = a.left - b.left, dy = a.top - b.top;
+          if (dx || dy) li.animate([{ transform: 'translate(' + dx + 'px,' + dy + 'px)' }, { transform: 'none' }], { duration: 420, easing: EASE });
+        }
+      });
+    };
+
+    const leaving = items.filter((li) => !li.hidden && !keep(li));
+    if (reduced() || !leaving.length) { commit(); return; }
+    leaving.forEach((li) => li.animate(
+      [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'scale(.94)' }],
+      { duration: 170, easing: 'ease-in', fill: 'forwards' }
+    ));
+    window.setTimeout(commit, 170);
+  }
+
+  /* ---------- Grid ---------- */
+  function buildTile(p, i) {
+    const typeLabel = TYPE_LABEL[p.type] || 'Project';
+    const a = h('a', { class: 'tile', href: '#post-' + p.id, 'aria-label': p.title + ', ' + typeLabel + '. Open project.' });
+
+    const fallback = () => h('span', { class: 'tile__thumb', html: placeholderArt(p, { decorative: true }) });
+    if (isPlaceholder(p.thumbnail)) {
+      a.classList.add('tile--sample');
+      a.append(fallback());
+    } else if (isEmbed(p.thumbnail)) {
+      a.append(h('span', { class: 'tile__embed', 'aria-hidden': 'true' },
+        h('iframe', { src: p.thumbnail, title: p.title + ' preview', loading: 'lazy', tabindex: '-1', allow: 'autoplay; fullscreen' })));
+    } else {
+      const img = h('img', { class: 'tile__thumb', src: p.thumbnail, alt: '', loading: 'lazy', decoding: 'async' });
+      img.addEventListener('error', () => img.replaceWith(missing(p.thumbnail)), { once: true });
+      a.append(img);
+    }
+
+    const real = (p.media || []).filter((m) => !isPlaceholder(m) && !isEmbed(m));
+    const count = (p.media || []).length + (p.behindTheScenes ? 1 : 0);
+    if (isVideoType(p)) a.append(h('span', { class: 'tile__badge', html: icon('playSolid') }));
+    else if (count > 1) a.append(h('span', { class: 'tile__badge', html: icon('stack') }));
+
+    a.append(h('span', { class: 'tile__overlay', 'aria-hidden': 'true' },
+      h('span', { class: 'tile__type', text: typeLabel }),
+      h('span', { class: 'tile__title', text: p.title })
+    ));
+
+    a.addEventListener('click', (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) return;
+      e.preventDefault();
+      openPost(p.id, { push: true, trigger: a });
+    });
+
+    /* Muted looping preview on hover (desktop, only when a video file is set) */
+    const clip = isVideoType(p) ? real.find(isVideo) : null;
+    if (clip) {
+      let v = null;
+      a.addEventListener('mouseenter', () => {
+        if (!mqHover.matches || reduced()) return;
+        if (!v) {
+          v = h('video', { class: 'tile__preview', loop: true, playsinline: true, preload: 'auto', 'aria-hidden': 'true', tabindex: '-1' });
+          v.muted = true;
+          v.addEventListener('playing', () => v.classList.add('is-playing'));
+          v.src = clip;
+          a.insertBefore(v, a.querySelector('.tile__badge'));
+        }
+        const pr = v.play();
+        if (pr && pr.catch) pr.catch(() => {});
+      });
+      a.addEventListener('mouseleave', () => {
+        if (!v) return;
+        v.pause();
+        v.classList.remove('is-playing');
+        try { v.currentTime = 0; } catch (err) { /* not seekable yet */ }
+      });
+    }
+
+    const li = h('li', { class: 'grid__item', 'data-id': p.id, style: '--i:' + i }, a);
+    return li;
+  }
+
+  function renderGrid() {
+    const frag = document.createDocumentFragment();
+    PROJECTS.forEach((p, i) => frag.append(buildTile(p, i)));
+    grid.replaceChildren(frag);
+    const stat = $('#stat-projects');
+    if (stat) stat.textContent = PROJECTS.length;
+  }
+
+  /* ---------- Post view: media ---------- */
+  function buildSlides(p) {
+    let list = (p.media || []).slice();
+    if (!list.length) list = ['placeholder'];
+    const slides = list.map((src, i) => ({
+      src: src,
+      bts: false,
+      placeholder: isPlaceholder(src),
+      embed: isEmbed(src),
+      video: isVideo(src),
+      videoShape: isPlaceholder(src) && isVideoType(p) && i === 0
+    }));
+    const b = p.behindTheScenes;
+    const bSrc = b && typeof b === 'object' ? b.src : b;
+    if (b) slides.push({ src: bSrc, bts: true, placeholder: isPlaceholder(bSrc), embed: isEmbed(bSrc), video: isVideo(bSrc), videoShape: false });
+    return slides;
+  }
+
+  function videoFrame(p, s, label, i) {
+    const v = h('video', { controls: true, playsinline: true, loop: true, preload: 'metadata', 'aria-label': label });
+    v.muted = true;
+    const poster = (p.posters || [])[i] || (i === 0 && !s.bts && !isPlaceholder(p.thumbnail) && !isEmbed(p.thumbnail) ? p.thumbnail : '');
+    if (poster) v.poster = poster;
+    v.src = s.src;
+    const btn = h('button', { class: 'sound', type: 'button' });
+    const sync = () => {
+      const on = !v.muted && v.volume > 0;
+      btn.innerHTML = icon(on ? 'soundOn' : 'soundOff');
+      btn.setAttribute('aria-pressed', String(on));
+      btn.setAttribute('aria-label', on ? 'Mute sound' : 'Turn sound on');
+    };
+    btn.addEventListener('click', () => {
+      if (v.muted || v.volume === 0) { v.muted = false; if (!v.volume) v.volume = 1; }
+      else v.muted = true;
+    });
+    v.addEventListener('volumechange', sync);
+    sync();
+    const reel = p.type === 'reel' && !s.bts;
+    return h('div', { class: 'vid fill' }, h('div', { class: 'vid__frame' + (reel ? ' vid__frame--reel' : '') }, v, btn));
+  }
+
+  function placeholderVideo(p, label) {
+    const reel = p.type === 'reel';
+    const art = placeholderArt(p, reel ? { w: 360, h: 640, label: label, plain: true } : { w: 640, h: 360, label: label, plain: true });
+    return h('div', { class: 'vid fill' },
+      h('div', {
+        class: 'vid__frame vid__frame--ph' + (reel ? ' vid__frame--reel' : ''),
+        html: art + '<span class="vid__note">Sample frame. Add a video path to this project\'s media to turn on playback and the sound button.</span>'
+      })
+    );
+  }
+
+  function buildSlide(p, s, i, n, mainCount) {
+    const slide = h('div', {
+      class: 'slide',
+      role: n > 1 ? 'group' : null,
+      'aria-roledescription': n > 1 ? 'slide' : null,
+      'aria-label': n > 1 ? (i + 1) + ' of ' + n + (s.bts ? ', behind the scenes' : '') : null
+    });
+    const label = s.bts ? 'Behind the scenes of ' + p.title
+      : n > 1 ? p.title + ', ' + (i + 1) + ' of ' + n
+      : p.title;
+    const art = () => h('div', {
+      class: 'fill',
+      html: placeholderArt(p, { variant: s.bts ? 0 : i, total: mainCount, bts: s.bts, fit: 'meet', label: label + ' (sample artwork)' })
+    });
+
+    if (s.placeholder) slide.append(s.videoShape ? placeholderVideo(p, label + ' (sample frame)') : art());
+    else if (s.embed) {
+      const reel = p.type === 'reel' && !s.bts;
+      slide.append(h('div', { class: 'vid fill' },
+        h('div', { class: 'vid__frame' + (reel ? ' vid__frame--reel' : '') },
+          h('iframe', { src: s.src, title: label, loading: i === 0 ? null : 'lazy', allow: 'autoplay; fullscreen; picture-in-picture', allowfullscreen: true }))));
+    }
+    else if (s.video) slide.append(videoFrame(p, s, label, i));
+    else {
+      const img = h('img', { class: 'fill', src: s.src, alt: label, loading: i === 0 ? 'eager' : 'lazy', decoding: 'async' });
+      img.addEventListener('error', () => img.replaceWith(missing(s.src, 'fill')), { once: true });
+      slide.append(img);
+    }
+    if (s.bts) slide.append(h('span', { class: 'chip', text: 'Behind the scenes' }));
+    return slide;
+  }
+
+  function teardownMedia() {
+    mediaEl.querySelectorAll('video').forEach((v) => {
+      v.pause();
+      if (v.hasAttribute('src')) { v.removeAttribute('src'); v.load(); }
+    });
+    state.carousel = null;
+  }
+
+  function renderMedia(p) {
+    teardownMedia();
+    const slides = buildSlides(p);
+    const n = slides.length;
+    const mainCount = slides.filter((s) => !s.bts).length;
+    const track = h('div', { class: 'track' });
+    const slideEls = slides.map((s, i) => buildSlide(p, s, i, n, mainCount));
+    slideEls.forEach((el) => track.append(el));
+    const stage = h('div', { class: 'stage' }, track);
+    const nodes = [stage];
+
+    if (n > 1) {
+      stage.classList.add('carousel');
+      track.setAttribute('tabindex', '0');
+      track.setAttribute('role', 'group');
+      track.setAttribute('aria-roledescription', 'carousel');
+      track.setAttribute('aria-label', p.title + ', ' + n + ' slides. Use the left and right arrow keys to move between slides.');
+
+      const prev = h('button', { class: 'car car--prev', type: 'button', 'aria-label': 'Previous slide', html: icon('left') });
+      const next = h('button', { class: 'car car--next', type: 'button', 'aria-label': 'Next slide', html: icon('right') });
+      const dots = h('div', { class: 'dots' });
+      const dotBtns = slides.map((s, i) => {
+        const d = h('button', { class: 'dot', type: 'button', 'aria-label': 'Go to slide ' + (i + 1) + ' of ' + n + (s.bts ? ', behind the scenes' : '') });
+        d.addEventListener('click', () => go(i));
+        dots.append(d);
+        return d;
+      });
+
+      let cur = -1;
+      const set = (i) => {
+        if (cur >= 0 && cur !== i) {
+          slideEls[cur].querySelectorAll('iframe').forEach((f) => { const src = f.src; f.src = src; });
+        }
+        cur = i;
+        prev.setAttribute('aria-disabled', String(i === 0));
+        next.setAttribute('aria-disabled', String(i === n - 1));
+        dotBtns.forEach((d, j) => d.setAttribute('aria-current', String(j === i)));
+        slideEls.forEach((el, j) => { if (j !== i) el.querySelectorAll('video').forEach((v) => v.pause()); });
+      };
+      const go = (i) => {
+        i = Math.max(0, Math.min(n - 1, i));
+        track.scrollTo({ left: i * track.clientWidth, behavior: reduced() ? 'auto' : 'smooth' });
+      };
+      let raf = 0;
+      track.addEventListener('scroll', () => {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          const w = track.clientWidth;
+          if (!w) return;
+          const i = Math.max(0, Math.min(n - 1, Math.round(track.scrollLeft / w)));
+          if (i !== cur) set(i);
+        });
+      }, { passive: true });
+      prev.addEventListener('click', () => go(cur - 1));
+      next.addEventListener('click', () => go(cur + 1));
+      set(0);
+
+      stage.append(prev, next);
+      nodes.push(dots);
+      state.carousel = { step: (d) => go(cur + d) };
+    }
+
+    mediaEl.replaceChildren.apply(mediaEl, nodes);
+
+    const first = slideEls[0].querySelector('video');
+    if (first && !reduced()) {
+      const pr = first.play();
+      if (pr && pr.catch) pr.catch(() => {});
+    }
+  }
+
+  /* ---------- Post view: caption panel ---------- */
+  function factRow(label, value, isResult) {
+    if (!value) return null;
+    return h('div', { class: 'facts__row' + (isResult ? ' facts__row--result' : '') },
+      h('dt', { text: label }),
+      h('dd', { text: value })
+    );
+  }
+
+  function renderPanel(p) {
+    const kids = [
+      h('h2', { class: 'post__title', id: 'post-title', text: p.title }),
+      p.description ? h('p', { class: 'post__desc', text: p.description }) : null
+    ];
+
+    const facts = h('dl', { class: 'facts' }, factRow('Role', p.role), factRow('Tools', p.tools), factRow('Result', p.result, true));
+    if (facts.children.length) kids.push(facts);
+
+    if ((p.tags || []).length) {
+      const ul = h('ul', { class: 'tags', role: 'list', 'aria-label': 'Skills. Choose one to filter the grid.' });
+      p.tags.forEach((tag) => {
+        const b = h('button', { class: 'tag', type: 'button', text: '#' + tag, 'aria-label': 'Show all projects tagged ' + tag });
+        b.addEventListener('click', () => {
+          closePost(() => {
+            applyFilter({ kind: 'tag', value: tag });
+            clearBtn.hidden = false;
+            const work = $('#work');
+            work.scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'start' });
+            clearBtn.focus({ preventScroll: true });
+          });
+        });
+        ul.append(h('li', null, b));
+      });
+      kids.push(ul);
+    }
+
+    const links = h('div', { class: 'post__links' });
+    const ext = { target: '_blank', rel: 'noopener noreferrer' };
+    const original = safeUrl(p.originalUrl), gondola = safeUrl(p.gondolaUrl), study = safeUrl(p.caseStudyUrl);
+    if (original) {
+      links.append(h('a', Object.assign({ class: 'btn', href: original, html: '<span>View original post</span>' + icon('external') + '<span class="sr-only"> (opens in a new tab)</span>' }, ext)));
+    }
+    if (gondola) {
+      links.append(h('a', Object.assign({ class: 'textlink', href: gondola, html: icon('check') + '<span>Verified on Gondola</span><span class="sr-only"> (opens in a new tab)</span>' }, ext)));
+    }
+    if (study) {
+      links.append(h('a', Object.assign({ class: 'textlink', href: study, html: '<span>Read full case study</span><span class="sr-only"> (opens in a new tab)</span>' }, ext)));
+    }
+    if (links.children.length) kids.push(links);
+
+    bodyEl.replaceChildren.apply(bodyEl, kids.filter(Boolean));
+    bodyEl.scrollTop = 0;
+    shell.scrollTop = 0;
+  }
+
+  /* ---------- Post view: open, navigate, close, deep links ---------- */
+  function navList() {
+    const vis = visibleProjects();
+    return vis.includes(byId(state.current)) ? vis : PROJECTS;
+  }
+
+  function renderPost(p) {
+    state.current = p.id;
+    const hadFocusInside = shell.contains(document.activeElement);
+    const list = navList();
+    const pos = list.indexOf(p) + 1;
+    const counter = pad(pos) + ' / ' + pad(list.length);
+    prevBtn.hidden = nextBtn.hidden = list.length < 2;
+    $('#post-count').textContent = counter;
+    $('#post-index').textContent = counter;
+    $('#post-handle').textContent = handle;
+    $('#post-type').textContent = TYPE_LABEL[p.type] || 'Project';
+    shell.classList.toggle('is-reel', p.type === 'reel');
+    /* Optional "aspect" field ("4/5", "9/16"...) sizes the media panel. */
+    const ar = String(p.aspect || '1/1').split('/').map(Number);
+    const ratio = ar[0] > 0 && ar[1] > 0 ? ar[0] / ar[1] : 1;
+    shell.style.setProperty('--ar', ar[0] + ' / ' + ar[1]);
+    shell.style.setProperty('--mw', p.type === 'reel' ? 9 / 16 : Math.min(1, ratio).toFixed(4));
+    renderMedia(p);
+    renderPanel(p);
+    $('#post-live').textContent = p.title + ', ' + (TYPE_LABEL[p.type] || 'project') + ', ' + pos + ' of ' + list.length;
+    if (hadFocusInside || !dialog.contains(document.activeElement)) closeBtn.focus({ preventScroll: true });
+  }
+
+  const hashId = () => {
+    const m = /^#post-(.+)$/.exec(window.location.hash);
+    if (!m) return null;
+    let raw = m[1];
+    try { raw = decodeURIComponent(raw); } catch (err) { /* keep raw */ }
+    const p = byId(raw);
+    return p ? p.id : null;
+  };
+
+  function setHash(id, mode) {
+    try {
+      if (mode === 'push') window.history.pushState({ jmPost: true }, '', '#post-' + id);
+      else window.history.replaceState(window.history.state, '', '#post-' + id);
+    } catch (err) { /* history is unavailable in some sandboxed previews */ }
+  }
+
+  function clearHash() {
+    try {
+      if (window.history.state && window.history.state.jmPost) window.history.back();
+      else window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    } catch (err) { /* ignore */ }
+  }
+
+  function openPost(id, opts) {
+    const p = byId(id);
+    if (!p) return;
+    opts = opts || {};
+    if (!dialog.open) {
+      state.trigger = opts.trigger || document.activeElement;
+      if (opts.push) setHash(p.id, 'push');
+      state.current = p.id;
+      root.classList.add('is-locked');
+      dialog.showModal();
+      closeBtn.focus({ preventScroll: true });
+    }
+    renderPost(p);
+  }
+
+  function stepPost(dir) {
+    const list = navList();
+    if (list.length < 2) return;
+    const i = list.indexOf(byId(state.current));
+    const p = list[(i + dir + list.length) % list.length];
+    setHash(p.id, 'replace');
+    renderPost(p);
+    if (!reduced()) shell.animate([{ opacity: .35 }, { opacity: 1 }], { duration: 200, easing: 'ease-out' });
+  }
+
+  function closePost(after) {
+    if (!dialog.open) return;
+    state.afterClose = typeof after === 'function' ? after : null;
+    dialog.close();
+  }
+
+  function focusTile(id) {
+    let target = null;
+    grid.querySelectorAll('.grid__item').forEach((li) => {
+      if (!li.hidden && String(li.dataset.id) === String(id)) target = li.querySelector('.tile');
+    });
+    if (!target && state.trigger && document.contains(state.trigger)) target = state.trigger;
+    if (target && target.focus) target.focus({ preventScroll: true });
+  }
+
+  dialog.addEventListener('close', () => {
+    teardownMedia();
+    mediaEl.replaceChildren();
+    root.classList.remove('is-locked');
+    const id = state.current;
+    state.current = null;
+    if (hashId() != null) clearHash();
+    const after = state.afterClose;
+    state.afterClose = null;
+    if (after) after(); else focusTile(id);
+    state.trigger = null;
+  });
+
+  function syncFromHash() {
+    const id = hashId();
+    if (id == null) { if (dialog.open) closePost(); return; }
+    if (!dialog.open) {
+      let tile = null;
+      grid.querySelectorAll('.grid__item').forEach((li) => { if (String(li.dataset.id) === String(id)) tile = li.querySelector('.tile'); });
+      openPost(id, { push: false, trigger: tile });
+    } else if (String(id) !== String(state.current)) {
+      renderPost(byId(id));
+    }
+  }
+
+  /* Click outside the post closes it */
+  let pressedBackdrop = false;
+  dialog.addEventListener('pointerdown', (e) => { pressedBackdrop = e.target === dialog; });
+  dialog.addEventListener('click', (e) => {
+    if (e.target === dialog && pressedBackdrop) closePost();
+    pressedBackdrop = false;
+  });
+
+  closeBtn.addEventListener('click', () => closePost());
+  prevBtn.addEventListener('click', () => stepPost(-1));
+  nextBtn.addEventListener('click', () => stepPost(1));
+  clearBtn.addEventListener('click', () => {
+    applyFilter({ kind: 'category', value: 'all' });
+    const all = hlList.querySelector('.hl');
+    if (all) all.focus({ preventScroll: true });
+  });
+
+  /* Keyboard: Tab stays inside the post, arrows move between projects.
+     Escape is handled by the <dialog> itself. */
+  function trapTab(e) {
+    const active = document.activeElement;
+    if (active && active.tagName === 'VIDEO') return;
+    const items = Array.from(dialog.querySelectorAll('a[href], button, video[controls], [tabindex]:not([tabindex="-1"])'))
+      .filter((el) => !el.hidden && !el.disabled && el.getClientRects().length);
+    if (!items.length) return;
+    const first = items[0], last = items[items.length - 1];
+    const outside = !dialog.contains(active);
+    if (e.shiftKey && (active === first || outside)) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && (active === last || outside)) { e.preventDefault(); first.focus(); }
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (!dialog.open) return;
+    if (e.key === 'Tab') { trapTab(e); return; }
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    const t = e.target;
+    if (t && t.tagName === 'VIDEO') return;
+    const dir = e.key === 'ArrowLeft' ? -1 : 1;
+    if (state.carousel && t && t.closest && t.closest('.carousel, .dots')) {
+      e.preventDefault();
+      state.carousel.step(dir);
+      return;
+    }
+    e.preventDefault();
+    stepPost(dir);
+  });
+
+  /* ---------- Start ---------- */
+  setAvatars();
+  renderHighlights();
+  renderGrid();
+  updateStatus();
+  window.addEventListener('popstate', syncFromHash);
+  window.addEventListener('hashchange', syncFromHash);
+  syncFromHash();
+  window.setTimeout(() => grid.classList.remove('is-intro'), 1500);
+})();
+</script>
+</body>
+</html>
